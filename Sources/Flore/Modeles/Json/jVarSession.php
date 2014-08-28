@@ -4,9 +4,11 @@
     
     switch ($_POST['varSession']) {
         case 'infosNumerisateur':
-            $obr_id = $_SESSION[APPLI]['numerisateur']['code'];
+            $numerisateur_id = $_SESSION[APPLI]['numerisateur']['code'];
             $numerisat = $_SESSION[APPLI]['numerisateur']['libelle'];
-            die('{success: true, numerisateur: "' . $obr_id . '", numerisat: "' .
+            $observateur_id = $_SESSION[APPLI]['observateur']['code'];
+            $observateur = $_SESSION[APPLI]['observateur']['libelle'];
+            die('{success: true, numerisateur: "' . $numerisateur_id . '", numerisat: "' .
                 $numerisat . '"}');
         break;
         case 'saisieEnCours':

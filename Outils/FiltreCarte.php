@@ -1,8 +1,10 @@
 <?php
-    //Fichier servant à filtrer la grille en cours
-    $chGeom = ($_REQUEST['chGeom'] == null)? '' : $_REQUEST['chGeom'];
-    $epsg = ($_REQUEST['epsg'] == null)? '' : $_REQUEST['epsg'];
-    $filtreEmprise = ($_REQUEST['filtreEmprise'] == null)? '' : $_REQUEST['filtreEmprise'];
+    //Fichier servant à filtrer la grille en cours    
+    $filtreEmprise = (isset($_REQUEST['epsg']) && ($_REQUEST['epsg'] != null)) ? $_REQUEST['epsg'] : '';
+
+    $chGeom = (isset($_REQUEST['chGeom'])) ?  $_REQUEST['chGeom'] : '';
+    
+    $filtreEmprise = (isset($_REQUEST['filtreEmprise']) && ($_REQUEST['filtreEmprise'] != null)) ? $_REQUEST['filtreEmprise'] : '';
 
     $and = '0 = 0'; // variable globale pour la clause "AND"
     

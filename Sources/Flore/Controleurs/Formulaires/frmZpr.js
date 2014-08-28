@@ -1,5 +1,5 @@
 //Variables globales utilisées pour gérer le formulaire
-var formulaire, fenetreFormulaire, toucheENTREE = true, comboAjoutCible, listCibles,
+var formulaire, fenetreFormulaire, toucheENTREE = true, comboAjoutCible, listCibles,comboObr, 
     comboCategorie;
 
 Ext.onReady(function() {
@@ -16,7 +16,8 @@ Ext.onReady(function() {
         forceSelection: true,
         displayField: 'val',
         valueField: 'val',
-        fieldLabel: 'Catégorie'
+        fieldLabel: 'Catégorie',
+        
     });
     //Gestion de la liste des cibles
     comboAjoutCible = new Ext.form.ComboBox({
@@ -55,6 +56,24 @@ Ext.onReady(function() {
         fieldLabel: 'Cibles',
         items: listCibles
     });
+    //Combo d'auto-complétion "observateur"
+    comboObr = new Ext.form.ComboBox({
+        id: 'obr_id',
+        triggerAction: 'all',
+        store: new Ext.data.JsonStore({
+            url: "../Modeles/Json/jListVal.php?table=saisie.observateur&chId=obr_id&chVal=obr_nom || ' ' || obr_prenom",
+            fields: ['id', 'val']
+        }),
+        emptyText: 'Sélectionnez',
+        mode: 'local',
+        displayField: 'val',
+        valueField: 'id',
+        fieldLabel: 'Observateur',
+        allowBlank: true,
+        forceSelection : true,
+        hiddenName:'obr_id'
+    });
+    
     //Panel contenant le formulaire avec titre, contrôles de saisie et boutons action
     formulaire = new Ext.FormPanel({
         keys: [{key: [Ext.EventObject.ENTER], fn: function() {if (toucheENTREE) {soumettre()}}}],
@@ -134,7 +153,7 @@ Ext.onReady(function() {
                                         toucheENTREE  = true;
                                     }
                                 }
-                            }, {
+                            }, comboObr, {
                                 xtype: 'textfield',
                                 fieldLabel: 'Numérisateur',
                                 id: 'numerisat',
@@ -195,6 +214,7 @@ Ext.onReady(function() {
     });
     //Initialisation des listes
     comboCategorie.store.load();
+    comboObr.store.load();
 });
 
 //Affichage en mode ajout

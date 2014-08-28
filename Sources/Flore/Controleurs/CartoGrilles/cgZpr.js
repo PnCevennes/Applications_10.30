@@ -15,6 +15,8 @@ Ext.onReady(function() {
                 if (obj.success) {
                     numerisateur = obj.numerisateur;
                     numerisat = obj.numerisat;
+                    observateur = obj.observateur;
+                    obr_id = obj.obr_id;
                     // écran scindé horizontalement ou verticalement selon le paramétrage par défaut
                     basculeEcran(sensRegion);
                 }
@@ -58,7 +60,7 @@ function basculeEcran(sens) {
     var filtreZprProprio = new OpenLayers.Filter.Comparison({
         type: OpenLayers.Filter.Comparison.EQUAL_TO,
         property: 'obr_id',
-        value: numerisateur
+        value: obr_id
     });
     var filtreZprProprioAffectee = new OpenLayers.Filter.Logical({
         type: OpenLayers.Filter.Logical.AND,
@@ -298,7 +300,7 @@ function basculeEcran(sens) {
             {name: 'zpr_duree'},
             {name: 'zpr_num_j'},
             {name: 'zpr_cmt'},
-            {name: 'numerisat'},
+            {name: 'observateur'},
             {name: 'obr_id'},
             {name: 'zpr_affectee'},
             {name: 'cpt_enjeux'},
@@ -307,7 +309,8 @@ function basculeEcran(sens) {
             {name: 'cpt_flore'},
             {name: 'zpr_categorie'},
             {name: 'zpr_cibles'},
-            {name: 'cibles'}
+            {name: 'cibles'},
+            {name: 'numerisat'}
         ]
     });
     donneesGrille = new (Ext.extend(Ext.data.GroupingStore, new GeoExt.data.FeatureStoreMixin))({
@@ -388,7 +391,7 @@ function basculeEcran(sens) {
             {type: 'numeric', dataIndex: 'zpr_duree', menuItemCfgs : {emptyText: ''}},
             {type: 'string', dataIndex: 'zpr_num_j', emptyText: 'Ex. : Val1||Val2||Val3'},
             {type: 'string', dataIndex: 'zpr_cmt', emptyText: 'Ex. : Val1||Val2||Val3'},
-            {type: 'string', dataIndex: 'numerisat', emptyText: 'Ex. : Val1||Val2||Val3'},
+            {type: 'string', dataIndex: 'observateur', emptyText: 'Ex. : Val1||Val2||Val3'},
             {type: 'numeric', dataIndex: 'obr_id', menuItemCfgs : {emptyText: ''}},
             {type: 'boolean', dataIndex: 'zpr_affectee', defaultValue: null, yesText: 'Oui', noText: 'Non'},
             {type: 'numeric', dataIndex: 'cpt_enjeux', menuItemCfgs : {emptyText: ''}},
@@ -397,7 +400,8 @@ function basculeEcran(sens) {
             {type: 'numeric', dataIndex: 'cpt_flore', menuItemCfgs : {emptyText: ''}},
             {type: 'string', dataIndex: 'zpr_categorie', emptyText: 'Ex. : Val1||Val2||Val3'},
             {type: 'string', dataIndex: 'zpr_cibles', emptyText: 'Ex. : Val1||Val2||Val3'},
-            {type: 'string', dataIndex: 'cibles', emptyText: 'Ex. : Val1||Val2||Val3'}
+            {type: 'string', dataIndex: 'cibles', emptyText: 'Ex. : Val1||Val2||Val3'},
+            {type: 'string', dataIndex: 'numerisat', emptyText: 'Ex. : Val1||Val2||Val3'}
         ]
     });
     //Configuration type de chaque colonne
@@ -411,7 +415,7 @@ function basculeEcran(sens) {
             {dataIndex: 'zpr_duree', header: 'Durée (min)'},
             {dataIndex: 'zpr_num_j', header: 'Numéro jounalier'},
             {dataIndex: 'zpr_cmt', header: 'Commentaires', hidden: true},
-            {dataIndex: 'numerisat', header: 'Numérisateur'},
+            {dataIndex: 'observateur', header: 'Obervateur'},
             {dataIndex: 'obr_id', header: 'obr_id', hidden: true},
             {dataIndex: 'zpr_affectee', header: 'Données', renderer: traiteAffichageBoolean},
             {dataIndex: 'cpt_enjeux', header: 'Nb enjeux'},
@@ -420,7 +424,8 @@ function basculeEcran(sens) {
             {dataIndex: 'cpt_flore', header: 'Nb pt flore'},
             {dataIndex: 'zpr_categorie', header: 'Catégorie', hidden: true},
             {dataIndex: 'zpr_cibles', header: 'zpr_cibles', hidden: true},
-            {dataIndex: 'cibles', header: 'Cibles'}
+            {dataIndex: 'cibles', header: 'Cibles'},
+            {dataIndex: 'numerisat', header: 'Numérisateur'}
         ]
     });
     //Barre de menu

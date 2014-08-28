@@ -35,7 +35,9 @@
             unset($taxFlo->actionFlo);
             switch ($_POST['actionFlo']) {
                 case 'Ajouter':
-                    $tax_id = $taxFlo->ajoute($_POST['zpr_id']);
+                    $zpr_id = 0;
+                    if (isset($_POST['zpr_id'])) $zpr_id = $_POST['zpr_id'];
+                    $tax_id = $taxFlo->ajoute($zpr_id);
                     if ($tax_id > 0) {
                         $data = 'Espèce Flore ajoutée avec succès';
                         die('{success: true, data: "' . $data . '"}');

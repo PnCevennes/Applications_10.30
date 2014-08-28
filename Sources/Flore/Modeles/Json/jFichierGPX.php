@@ -1,6 +1,8 @@
 <?php
     session_start();
     require_once '../../../../Outils/Fct.php';
+    require_once '../../Configuration/PostGreSQL.php';
+    
 
     // ATTENTION : un niveau d'arborescence de + ici par rapport à la constante JS
     $cheminRelatifGPX = '../' . $_POST['CST_cheminRelatifGPX'];

@@ -4,7 +4,7 @@ var formulaire, fenetreFormulaire;
 Ext.onReady(function() {
     //Combo d'auto-complétion "observateur"
     var comboObr = new Ext.form.ComboBox({
-        id: 'obr_id',
+        id: 'numerisateur_id',
         triggerAction: 'all',
         store: new Ext.data.JsonStore({
             url: "../Modeles/Json/jListVal.php?table=saisie.observateur&chId=obr_id&chVal=obr_nom || ' ' || obr_prenom",
@@ -14,9 +14,9 @@ Ext.onReady(function() {
         mode: 'local',
         displayField: 'val',
         valueField: 'id',
-        fieldLabel: 'Observateur FLORE',
+        fieldLabel: 'Numérisateur FLORE',
         allowBlank: false,
-        blankText: "Veuillez sélectionner l'observateur FLORE !",
+        blankText: "Veuillez sélectionner le numérisateur FLORE !",
         forceSelection : true
     });
     //Panel contenant le formulaire avec titre, contrôles de saisie et boutons action
@@ -62,9 +62,9 @@ Ext.onReady(function() {
         items: formulaireTotal
     });
     fenetreFormulaire.show();
-    Ext.getCmp('obr_id').focus('', 2000); // focus de 2000 ms sinon ça ne marche pas
+    Ext.getCmp('numerisateur_id').focus('', 2000); // focus de 2000 ms sinon ça ne marche pas
     //Initialisation des listes et des variables quasi-stables dans le temps
-    comboObr.store.load({callback: function() {comboObr.setValue(recupereCookie('obr_id'))}});
+    comboObr.store.load({callback: function() {comboObr.setValue(recupereCookie('numerisateur_id'))}});
 });
 
 //Fonction appelée sur le click du bouton "Se connecter"
@@ -77,18 +77,18 @@ function soumettre() {
             url: '../Controleurs/Gestions/GestSession.php',
             params: {
                 action: 'Authentifier',
-                obr_id: Ext.getCmp('obr_id').value
+                numerisateur_id: Ext.getCmp('numerisateur_id').value
             },
             callback: function(options, success, response) {
                 if (success) {
                     var obj = Ext.util.JSON.decode(response.responseText); // décodage JSON du résultat du POST
                     if (obj.success) {
                         if (Ext.getCmp('save').checked) {
-                            creeCookie('obr_id', Ext.getCmp('obr_id').value, 365);
+                            creeCookie('numerisateur_id', Ext.getCmp('numerisateur_id').value, 365);
                             creeCookie('save', Ext.getCmp('save').getValue(), 365);
                         }
                         else  {
-                            supprimeCookie('obr_id');
+                            supprimeCookie('numerisateur_id');
                             supprimeCookie('save');
                         }
                         Ext.getCmp('statusbar').setStatus({

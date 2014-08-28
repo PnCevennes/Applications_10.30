@@ -3,7 +3,9 @@
     require_once '../../Modeles/Classes/ClassCnxPgBd.php';
 
     $cnxPgBd = new CnxPgBd();
-    if ($_REQUEST['codes']) {
+    
+    
+    if ((isset($_REQUEST['codes'])) && ($_REQUEST['codes']) ) {
         $req = "SELECT cd_nom AS code, nom_complet AS libelle FROM inpn.v_cibles
             WHERE cd_nom NOT IN ('" . str_replace(', ', "','", $_REQUEST['codes']) .
             "')";// ORDER BY libelle";

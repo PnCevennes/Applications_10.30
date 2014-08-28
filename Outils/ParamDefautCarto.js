@@ -12,7 +12,7 @@ var WMS_Ortho = new OpenLayers.Layer.WMS.Post('Orthophotos', 'http://192.168.10.
 );
 var WMS_BD_Orthos = new OpenLayers.Layer.WMS.Post('BD Ortho IGN (2007-2008)', 'http://192.168.10.30/wms/ortho/',
     {layers: ['BD_Orthos']});
-var WMS_Ortho48HR2008 = new OpenLayers.Layer.WMS.Post('Orthophotos HR Loz�re (2008)', 'http://192.168.10.30/wms/ortho/',
+var WMS_Ortho48HR2008 = new OpenLayers.Layer.WMS.Post('Orthophotos HR Lozère (2008)', 'http://192.168.10.30/wms/ortho/',
     {layers: ['Ortho48HR2008']});
 var WMS_Ortho30HR2011 = new OpenLayers.Layer.WMS.Post('Orthophotos HR Gard (2011)', 'http://192.168.10.30/wms/ortho/',
     {layers: ['Ortho30HR2011']});
@@ -24,15 +24,6 @@ var WMS_PNC = new OpenLayers.Layer.WMS.Post('Limites PNC (Scan25)',
         transparent: 'true'
     }
 );
-
-var WMS_PNC_ZC_ContourPlein = new OpenLayers.Layer.WMS.Post('Fond Zc',
-    'http://192.168.10.30/wms/pnc/', {
-        layers: ['ZC_ContourPlein'],
-        isBaseLayer: false,
-        transparent: 'true'
-    }
-);
-
 // paramètrage visuel, echelle, emprise et système de projection
 const CST_center = [747329, 6358407];
 const CST_zoom = 12;
@@ -65,7 +56,7 @@ var carte = new OpenLayers.Map('carte', {
     ]
 });
 carte.addLayers([WMS_IGN, WMS_Ortho, WMS_BD_Orthos, WMS_Ortho48HR2008, WMS_Ortho30HR2011,
-    WMS_PNC, WMS_PNC_ZC_ContourPlein]);
+    WMS_PNC]);
 //Barre d'outils minimale
 // outil d'historisation de la navigation
 var btnsHistoNavig = new OpenLayers.Control.NavigationHistory();
@@ -78,12 +69,12 @@ var btnZoom = new OpenLayers.Control.ZoomBox({
 // outil de rectangle de dézoom
 var btnDezoom = new OpenLayers.Control.ZoomBox({
     out: true,
-    title: 'D�zoomer',
+    title: 'Dézoomer',
     displayClass: 'olControlUnzoom'
 });
 // outil de déplacement sur la carte
 var btnMvt = new OpenLayers.Control.DragPan({
-    title: 'Se d�placer',
+    title: 'Se déplacer',
     displayClass: 'olControlNavigation'
 });
 // outils de mesures
@@ -228,6 +219,7 @@ var btnZoomEmprise = new OpenLayers.Control.Button({
     },
     displayClass: 'olControlZoomExtent'
 });
+
 // barre d'outils
 var barreOutils = new OpenLayers.Control.Panel({
     displayClass: 'olControlToolbar'

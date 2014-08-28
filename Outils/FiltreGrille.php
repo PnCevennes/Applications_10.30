@@ -1,16 +1,19 @@
 <?php
     //Fichier servant à filtrer la grille en cours
-    $start = ($_REQUEST['start'] == null)? 0 : $_REQUEST['start'];
-    $limit = ($_REQUEST['limit'] == null)? 20 : $_REQUEST['limit'];
-    $sort = ($_REQUEST['sort'] == null)? '' : $_REQUEST['sort'];
-    $dir = ($_REQUEST['dir'] == 'DESC')? 'DESC' : '';
-    $filter = $_REQUEST['filter'];
-    $groupBy = ($_REQUEST['groupBy'] == null)? '' : $_REQUEST['groupBy'];
-    $filtreSel = ($_REQUEST['filtreSel'] == null)? '' : $_REQUEST['filtreSel'];
+//Fichier servant Ã  filtrer la grille en cours
+    $start = ((isset($_REQUEST['start'])) &&  ($_REQUEST['start'] != null)) ? pg_escape_string($_REQUEST['start']) : 0;// besoin de "pg_escape_string" car valeur maîtrisée par l'utilisateur
+    $limit = ((isset($_REQUEST['limit'])) &&  ($_REQUEST['limit'] != null)) ? pg_escape_string($_REQUEST['limit']) : 20;// besoin de "pg_escape_string" car valeur maîtrisée par l'utilisateur
+    $sort = ((isset($_REQUEST['sort'])) &&  ($_REQUEST['sort'] != null))  ?  $_REQUEST['sort'] :'';
+    $dir = ((isset($_REQUEST['dir'])) &&  ($_REQUEST['dir'] == 'DESC')) ? 'DESC' : '';
+
+    $filter = ((isset($_REQUEST['filter'])) && ($_REQUEST['filter']!= null))? $_REQUEST['filter']:'';
+
+    $groupBy = ((isset($_REQUEST['groupBy'])) && ($_REQUEST['groupBy']!= null))?  $_REQUEST['groupBy']:'';
+    $filtreSel = ((isset($_REQUEST['filtreSel'])) && ($_REQUEST['filtreSel'] != null))?  $_REQUEST['filtreSel'] :'';
     
     $where = '0 = 0'; // variable globale pour la clause "WHERE"
     $orderLimit = ''; // variable globale pour les clauses "ORDER BY et LIMIT-OFFSET
-
+    $qs ='';
     // construction de la clause "WHERE"
     if ($filtreSel != '') {
         $where .= $filtreSel;

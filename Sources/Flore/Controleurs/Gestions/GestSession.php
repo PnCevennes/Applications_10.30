@@ -10,12 +10,14 @@
             die('{success: true, data: "' . $data . '"}');
         break;
         case 'Authentifier':
-            $id = $_POST['obr_id'];
+            $id = $_POST['numerisateur_id'];
             if ($id) {
                 $obr = new Obr();
                 $obr->charge($id);
                 $_SESSION[APPLI]['numerisateur']['code'] = $obr->obr_id;
+                $_SESSION[APPLI]['observateur']['code'] = $_SESSION[APPLI]['numerisateur']['code'];
                 $_SESSION[APPLI]['numerisateur']['libelle'] = $obr->obr_nom . ' ' . $obr->obr_prenom;
+                $_SESSION[APPLI]['observateur']['libelle'] = $_SESSION[APPLI]['numerisateur']['libelle'];
                 $data = 'Bienvenue ' . $obr->obr_prenom . ' !!!';
                 die('{success: true, data: "' . $data . '"}');
             }
