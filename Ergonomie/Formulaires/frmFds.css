@@ -1,0 +1,60 @@
+.erase {
+    background-image:url(Images/erase.png) !important;
+}
+.import_IMG {
+    background-image:url(Images/import_IMG.png) !important;
+}
+.photo {
+    background-image:url(Images/photo.png) !important;
+}
+.precedent {
+    background-image:url(Images/precedent.gif) !important;
+}
+.suivant {
+    background-image:url(Images/suivant.gif) !important;
+}
+
+.connexion {
+    background-image:url(Images/connexion.png) !important;
+}
+
+.stop {
+    background-image:url(Images/stop.gif) !important;
+}
+
+.dupliquer {
+    background-image:url(Images/dupliquer.gif) !important;
+}
+
+.cancel {
+    background-image:url(Images/cancel.png) !important;
+}
+.checked {
+    background-image:url(Images/checked.gif) !important;
+}
+#titre_formulaire {
+    font: bold 15px tahoma, arial, helvetica, sans-serif;
+    color: #cc0000;
+    text-decoration: underline;
+    padding: 10px;
+    text-align: center;
+}
+
+.left_arrow {
+    background-image:url(Images/leftarrow.png) !important;
+    height: 54px !important;
+    width: 52px !important;
+}
+.right_arrow {
+    background-image:  url(Images/rightarrow.png) !important;
+    height: 54px !important;
+    width: 52px !important;
+}
+
+#texte_explication {
+    color: #777;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+}
