@@ -2,8 +2,6 @@
 config.php
 admin/config.php
 
-!index.html
-
 Photos/*
 GPX/*
 ParamDefaut.js
