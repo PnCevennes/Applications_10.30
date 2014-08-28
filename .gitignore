@@ -4,8 +4,7 @@ admin/config.php
 
 !index.html
 
-download/
-image/data/
-image/cache/
-system/cache/
-system/logs/
+Photos/*
+GPX/*
+ParamDefaut.js
+PostGreSQL.php
