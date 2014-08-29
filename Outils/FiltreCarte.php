@@ -12,4 +12,5 @@
     if (($chGeom != '') && ($epsg != '') && ($filtreEmprise != '')) {
         $and .= ' AND st_intersects('. $chGeom . ",  st_transform(ST_GeometryFromText('" . $filtreEmprise . "', 4326), " . $epsg . '))';
     }    
+
 ?>
