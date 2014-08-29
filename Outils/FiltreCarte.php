@@ -1,6 +1,6 @@
 <?php
     //Fichier servant à filtrer la grille en cours    
-    $filtreEmprise = (isset($_REQUEST['epsg']) && ($_REQUEST['epsg'] != null)) ? $_REQUEST['epsg'] : '';
+    $epsg = (isset($_REQUEST['epsg']) && ($_REQUEST['epsg'] != null)) ? $_REQUEST['epsg'] : '';
 
     $chGeom = (isset($_REQUEST['chGeom'])) ?  $_REQUEST['chGeom'] : '';
     
