@@ -602,9 +602,6 @@ function basculeEcran(sens) {
         }
     });
     donneesGrille.load({
-        params: {
-            limit: 'AUCUNE' // affichage de tous les enregistrements
-        },
         callback: function(rs) {
             barrePaginat.setPageSize(rs.length, false);
             // correction du bug d'affichage de la barre de pagination
