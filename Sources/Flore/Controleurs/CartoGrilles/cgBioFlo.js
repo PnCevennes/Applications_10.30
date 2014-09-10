@@ -1056,7 +1056,6 @@ function afficherPhotoBis() {
 }
 
 function actualiserGrilleFlo() {
-  
     var tax_bio_id = 0;
     if (grille.selModel.getCount() == 1) {
         tax_bio_id = grille.selModel.getSelected().data['bio_id'];
