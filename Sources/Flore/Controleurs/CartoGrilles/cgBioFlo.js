@@ -275,13 +275,17 @@ function basculeEcran(sens) {
         remoteGroup: true,
         sortInfo: {field: 'bio_id', direction: 'DESC'} // tri par ordre décroissant de création
     });
+    
     donneesGrilleFlo = new Ext.data.GroupingStore({
         proxy: new Ext.data.HttpProxy({url: '../Modeles/Json/jFlo1Bio.php'}),
         reader: lecteurDonneesFlo,
         remoteSort: true,
         remoteGroup: true,
-        sortInfo: {field: 'tax_id', direction: 'DESC'} // tri par ordre décroissant de création
+        sortInfo: {field: 'tax_id', direction: 'DESC'},  // tri par ordre décroissant de création
+        
     });
+    
+
     var donneesZprObr = new GeoExt.data.FeatureStore({
         layer: calqueZprObr,
         proxy: new GeoExt.data.ProtocolProxy({
@@ -450,6 +454,7 @@ function basculeEcran(sens) {
         listeners: {rowdblclick: modifier}
     });
     grille.selModel.on('selectionchange', actualiserGrilleFlo);
+    
     grilleFlo = new Ext.grid.GridPanel({
         sm: colonneSelection,
         view: new Ext.grid.GroupingView({
@@ -868,7 +873,15 @@ function supprimerFlo() {
     }
 }
 function rafraichieAffichageFlo() {
+    
+    var tax_bio_id = 0;
+    if (grille.selModel.getCount() == 1) {
+        tax_bio_id = grille.selModel.getSelected().data['bio_id'];
+    }
+    donneesGrilleFlo.baseParams = {tax_bio_id: tax_bio_id};
+    
     donneesGrilleFlo.reload({
+        params: {tax_bio_id: tax_bio_id},
         callback: function(rs) {
             // gestion du cas particulier de la suppression de tous les éléments de la dernière page
             if ((rs.length == 0) && (barrePaginatFlo.cursor > 0)) {
@@ -1043,13 +1056,15 @@ function afficherPhotoBis() {
 }
 
 function actualiserGrilleFlo() {
-    grille.selModel.suspendEvents(true);
+  
     var tax_bio_id = 0;
     if (grille.selModel.getCount() == 1) {
         tax_bio_id = grille.selModel.getSelected().data['bio_id'];
     }
+    donneesGrilleFlo.baseParams = {tax_bio_id: tax_bio_id};
+    
+    grille.selModel.suspendEvents(true);
     donneesGrilleFlo.reload({
-        params: {tax_bio_id: tax_bio_id},
         callback: function() {grille.selModel.resumeEvents();}
     })
 }
