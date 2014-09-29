@@ -53,6 +53,7 @@ Ext.onReady(function() {
         valueField: 'id',
         fieldLabel: 'Espèce lichens (en latin)',
         allowBlank: false,
+        listWidth:500,
         blankText: "Veuillez sélectionner l'espèce lichens observée !",
         forceSelection: true
     });

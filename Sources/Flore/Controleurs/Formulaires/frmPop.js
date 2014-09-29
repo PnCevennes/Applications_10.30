@@ -72,6 +72,7 @@ Ext.onReady(function() {
             fields: ['id', 'val']
         }),
         id: 'cd_nom',
+        listWidth:500,
         emptyText: 'Sélectionnez',
         triggerAction: 'all',
         mode: 'local',

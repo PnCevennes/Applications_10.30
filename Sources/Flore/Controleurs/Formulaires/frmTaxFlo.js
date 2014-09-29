@@ -226,6 +226,7 @@ Ext.onReady(function() {
         displayField: 'espece',
         valueField: 'espece',
         fieldLabel: 'Genre Espèce (nom latin)',
+        listWidth:500,
         listeners: {
             keyup: function() {
                 var requete = this.getRawValue();

@@ -48,6 +48,7 @@ Ext.onReady(function() {
         valueField: 'id',
         fieldLabel: 'Support',
         allowBlank: false,
+        listWidth:500,
         blankText: 'Veuillez sélectionner l\'espèce "support" observée !',
         forceSelection: true
     });
