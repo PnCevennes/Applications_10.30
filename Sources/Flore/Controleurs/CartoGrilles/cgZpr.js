@@ -413,9 +413,9 @@ function basculeEcran(sens) {
             {dataIndex: 'zpr_nom', header: 'Nom'},
             {dataIndex: 'zpr_date', header: 'Date', renderer: Ext.util.Format.dateRenderer('d/m/Y')},
             {dataIndex: 'zpr_duree', header: 'Durée (min)'},
-            {dataIndex: 'zpr_num_j', header: 'Numéro jounalier'},
+            {dataIndex: 'zpr_num_j', header: 'Numéro journalier'},
             {dataIndex: 'zpr_cmt', header: 'Commentaires', hidden: true},
-            {dataIndex: 'observateur', header: 'Obervateur'},
+            {dataIndex: 'observateur', header: 'Observateur'},
             {dataIndex: 'obr_id', header: 'obr_id', hidden: true},
             {dataIndex: 'zpr_affectee', header: 'Données', renderer: traiteAffichageBoolean},
             {dataIndex: 'cpt_enjeux', header: 'Nb enjeux'},
@@ -605,9 +605,8 @@ function basculeEcran(sens) {
         callback: function(rs) {
             barrePaginat.setPageSize(rs.length, false);
             // correction du bug d'affichage de la barre de pagination
-            barrePaginat.afterTextItem.setText('sur 1');
-            barrePaginat.next.setDisabled(true);
-            barrePaginat.last.setDisabled(true);
+            //AS -> pas compris le problème; pourquoi le nb d'enregistrement était bloqué
+            //barrePaginat.afterTextItem.setText('sur 1');
         }
     });
 }

@@ -25,4 +25,5 @@
     }
     echo '{"total":'.$tot.', "data": ' . json_encode($arr) . '}';
     unset($cnxPgBd);
+
 ?>

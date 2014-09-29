@@ -29,7 +29,7 @@ Ext.onReady(function() {
             url: '../Modeles/Json/jCodesCibles.php',
             fields: ['code', 'libelle']
         }),
-        emptyText: 'Sélectionez pour ajouter',
+        emptyText: 'Sélectionnez pour ajouter',
         mode: 'local',
         displayField: 'libelle',
         valueField: 'code',
