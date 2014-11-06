@@ -310,7 +310,8 @@ function basculeEcran(sens) {
             {name: 'zpr_categorie'},
             {name: 'zpr_cibles'},
             {name: 'cibles'},
-            {name: 'numerisat'}
+            {name: 'numerisat'},
+            {name: 'numerisateur'},
         ]
     });
     donneesGrille = new (Ext.extend(Ext.data.GroupingStore, new GeoExt.data.FeatureStoreMixin))({
@@ -425,7 +426,8 @@ function basculeEcran(sens) {
             {dataIndex: 'zpr_categorie', header: 'Catégorie', hidden: true},
             {dataIndex: 'zpr_cibles', header: 'zpr_cibles', hidden: true},
             {dataIndex: 'cibles', header: 'Cibles'},
-            {dataIndex: 'numerisat', header: 'Numérisateur'}
+            {dataIndex: 'numerisat', header: 'Numérisateur'},
+            {dataIndex: 'numerisateur', header: 'numerisateur', hidden: true},
         ]
     });
     //Barre de menu

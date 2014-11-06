@@ -1,6 +1,6 @@
 //Variables globales utilisées pour gérer le formulaire
 var formulaire, fenetreFormulaire, toucheENTREE = true, comboAjoutCible, listCibles,comboObr, 
-    comboCategorie;
+    comboCategorie, comboNumerisateur;
 
 Ext.onReady(function() {
     //Combo d'auto-complétion "catégorie"
@@ -56,14 +56,16 @@ Ext.onReady(function() {
         fieldLabel: 'Cibles',
         items: listCibles
     });
+   
+    var obr_store = new Ext.data.JsonStore({
+        url: "../Modeles/Json/jListVal.php?table=saisie.observateur&chId=obr_id&chVal=obr_nom || ' ' || obr_prenom",
+        fields: ['id', 'val']
+    })
     //Combo d'auto-complétion "observateur"
     comboObr = new Ext.form.ComboBox({
         id: 'obr_id',
         triggerAction: 'all',
-        store: new Ext.data.JsonStore({
-            url: "../Modeles/Json/jListVal.php?table=saisie.observateur&chId=obr_id&chVal=obr_nom || ' ' || obr_prenom",
-            fields: ['id', 'val']
-        }),
+        store: obr_store,
         emptyText: 'Sélectionnez',
         mode: 'local',
         displayField: 'val',
@@ -73,7 +75,20 @@ Ext.onReady(function() {
         forceSelection : true,
         hiddenName:'obr_id'
     });
-    
+    //Combo d'auto-complétion "numerisateur"
+    comboNumerisateur = new Ext.form.ComboBox({
+        id: 'numerisateur',
+        triggerAction: 'all',
+        store: obr_store,
+        emptyText: 'Sélectionnez',
+        mode: 'local',
+        displayField: 'val',
+        valueField: 'id',
+        fieldLabel: 'Numérisateur',
+        allowBlank: true,
+        forceSelection : true,
+        hiddenName:'numerisateur'
+    });
     //Panel contenant le formulaire avec titre, contrôles de saisie et boutons action
     formulaire = new Ext.FormPanel({
         keys: [{key: [Ext.EventObject.ENTER], fn: function() {if (toucheENTREE) {soumettre()}}}],
@@ -153,12 +168,7 @@ Ext.onReady(function() {
                                         toucheENTREE  = true;
                                     }
                                 }
-                            }, comboObr, {
-                                xtype: 'textfield',
-                                fieldLabel: 'Numérisateur',
-                                id: 'numerisat',
-                                readOnly: true
-                            }
+                            }, comboObr, comboNumerisateur
                         ]
                     }
                 ]
@@ -214,14 +224,15 @@ Ext.onReady(function() {
     });
     //Initialisation des listes
     comboCategorie.store.load();
-    comboObr.store.load();
+    obr_store.load();
 });
 
 //Affichage en mode ajout
 function ajoute(geom) {
     initialiseFormulaire();
     // initialisation des valeurs par défaut
-    Ext.getCmp('numerisat').setValue(numerisat); // propre à l'observateur FLORE connecté
+    comboNumerisateur.setValue(numerisateur);
+    comboObr.setValue(numerisateur);
     Ext.getCmp('zpr_categorie').setValue('recherche active');
     // affectation du mode en ajout
     Ext.getCmp('action').setValue('Ajouter');

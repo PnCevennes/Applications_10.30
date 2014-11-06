@@ -40,7 +40,7 @@
             }
             switch ($_POST['action']) {
                 case 'Ajouter':
-                    $zpr->numerisateur = $_SESSION[APPLI]['numerisateur']['code'];
+                    //$zpr->numerisateur = $_SESSION[APPLI]['numerisateur']['code'];
                     $zpr->ajoute();
                     $data = 'Zone prospectée ajoutée avec succès';
                     die('{success: true, data: "' . $data . '"}');
