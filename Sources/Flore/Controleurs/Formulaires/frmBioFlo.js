@@ -135,7 +135,7 @@ Ext.onReady(function() {
                                 height: 128,
                                 fieldLabel: 'Commentaires',
                                 id: 'bio_rq',
-                                maxLength: 254,
+                                maxLength: 500,
                                 listeners: {
                                     focus: function() {
                                         toucheENTREE = false;
