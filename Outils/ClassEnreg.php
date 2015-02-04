@@ -37,8 +37,7 @@
         function charge($id) {
             $result = false;
             if ((isset($id)) && ($id != '')) {
-                $req = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->chId .
-                    ' = ' . $id;
+                $req = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->chId .' = ' . $id;
                 $rs = $this->cnxPg->executeSql($req);
                 if (pg_num_rows($rs) == 1) {
                     $lig = pg_fetch_assoc($rs);

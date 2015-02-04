@@ -44,7 +44,7 @@ Ext.onReady(function() {
             fields: ['code', 'libelle']
         }),
         displayField: 'libelle',
-	valueField: 'code',
+        valueField: 'code',
         tbar: [
             comboAjoutCible, {
                 text: 'Suppr. sélection',
@@ -60,7 +60,7 @@ Ext.onReady(function() {
     var obr_store = new Ext.data.JsonStore({
         url: "../Modeles/Json/jListVal.php?table=saisie.observateur&chId=obr_id&chVal=obr_nom || ' ' || obr_prenom",
         fields: ['id', 'val']
-    })
+    });
     //Combo d'auto-complétion "observateur"
     comboObr = new Ext.form.ComboBox({
         id: 'obr_id',
@@ -75,11 +75,15 @@ Ext.onReady(function() {
         forceSelection : true,
         hiddenName:'obr_id'
     });
+    var numerisateur_store = new Ext.data.JsonStore({
+        url: "../Modeles/Json/jListVal.php?table=saisie.numerisateur&chId=obr_id&chVal=obr_nom || ' ' || obr_prenom",
+        fields: ['id', 'val']
+    });
     //Combo d'auto-complétion "numerisateur"
     comboNumerisateur = new Ext.form.ComboBox({
         id: 'numerisateur',
         triggerAction: 'all',
-        store: obr_store,
+        store: numerisateur_store,
         emptyText: 'Sélectionnez',
         mode: 'local',
         displayField: 'val',
@@ -225,6 +229,7 @@ Ext.onReady(function() {
     //Initialisation des listes
     comboCategorie.store.load();
     obr_store.load();
+    numerisateur_store.load();
 });
 
 //Affichage en mode ajout

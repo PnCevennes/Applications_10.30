@@ -11,14 +11,15 @@
         AS observateur, numerisateur, (num.obr_nom || ' ' || num.obr_prenom)
         AS numerisat, coalesce(zpr_affectee, false) as zpr_affectee, cpt_enjeux,
         cpt_station, cpt_lichen, cpt_flore, zpr_cibles, saisie.liste_cibles(zpr_cibles)
-        AS cibles FROM saisie.zone_prospection LEFT JOIN saisie.observateur obr USING(obr_id)
-        LEFT JOIN saisie.observateur num ON numerisateur = num.obr_id
+        AS cibles FROM saisie.zone_prospection 
+        LEFT JOIN saisie.observateur obr USING(obr_id)
+        LEFT JOIN saisie.numerisateur num ON numerisateur = num.obr_id
         LEFT JOIN saisie.v_zpr_affectees USING(zpr_id) LEFT JOIN saisie.v_zpr_bilan
         USING(zpr_id) WHERE " . $where . ' AND ' . $and . $orderLimit;
     $rs = $cnxPgBd->executeSql($req);
     $rsTot = $cnxPgBd->executeSql('SELECT COUNT(zpr_id) FROM saisie.zone_prospection
         LEFT JOIN saisie.observateur obr USING(obr_id)
-        LEFT JOIN saisie.observateur num ON numerisateur = num.obr_id
+        LEFT JOIN saisie.numerisateur num ON numerisateur = num.obr_id
         LEFT JOIN saisie.v_zpr_affectees USING(zpr_id) LEFT JOIN saisie.v_zpr_bilan
         USING(zpr_id) WHERE ' . $where .
         ' AND ' . $and);

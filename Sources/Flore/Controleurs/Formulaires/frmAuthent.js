@@ -7,7 +7,7 @@ Ext.onReady(function() {
         id: 'numerisateur_id',
         triggerAction: 'all',
         store: new Ext.data.JsonStore({
-            url: "../Modeles/Json/jListVal.php?table=saisie.observateur&chId=obr_id&chVal=obr_nom || ' ' || obr_prenom",
+            url: "../Modeles/Json/jListVal.php?table=saisie.numerisateur&chId=obr_id&chVal=login",
             fields: ['id', 'val']
         }),
         emptyText: 'Sélectionnez',
@@ -28,11 +28,20 @@ Ext.onReady(function() {
         defaults: {width: 250},
         labelSeparator: ' :',
         items: [
-                comboObr,
+            comboObr,
+            {
+                xtype: 'textfield',
+                fieldLabel: 'Mot de passe',
+                id: 'mot_de_passe',
+                allowBlank: false,
+                inputType: 'password',
+                value: recupereCookie('mot_de_passe'),
+                blankText: "Veuillez saisir votre mot de passe !",
+            },
             {
                 xtype:'checkbox',
-		fieldLabel: 'Se souvenir de moi',
-		id: 'save',
+                fieldLabel: 'Se souvenir de moi',
+                id: 'save',
                 checked: recupereCookie('save')
             }
         ]
@@ -77,7 +86,8 @@ function soumettre() {
             url: '../Controleurs/Gestions/GestSession.php',
             params: {
                 action: 'Authentifier',
-                numerisateur_id: Ext.getCmp('numerisateur_id').value
+                numerisateur_id: Ext.getCmp('numerisateur_id').value,
+                mot_de_passe: Ext.getCmp('mot_de_passe').getValue()
             },
             callback: function(options, success, response) {
                 if (success) {
@@ -85,10 +95,12 @@ function soumettre() {
                     if (obj.success) {
                         if (Ext.getCmp('save').checked) {
                             creeCookie('numerisateur_id', Ext.getCmp('numerisateur_id').value, 365);
+                            creeCookie('mot_de_passe', Ext.getCmp('mot_de_passe').getValue(), 365);
                             creeCookie('save', Ext.getCmp('save').getValue(), 365);
                         }
                         else  {
                             supprimeCookie('numerisateur_id');
+                            supprimeCookie('mot_de_passe');
                             supprimeCookie('save');
                         }
                         Ext.getCmp('statusbar').setStatus({

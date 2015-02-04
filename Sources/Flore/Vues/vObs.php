@@ -1,3 +1,6 @@
+<?php
+    require_once '../Securite/VerifCnx.php';
+?>
 <html>
     <head>
         <title>Observations FLORE</title>

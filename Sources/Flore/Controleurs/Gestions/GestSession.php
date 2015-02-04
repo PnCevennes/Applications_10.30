@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require_once '../../Modeles/Classes/ClassObr.php';
+    require_once '../../Modeles/Classes/ClassNumerisateur.php';
     require_once '../../Configuration/PostGreSQL.php';
     
     switch ($_POST['action']) {
@@ -10,10 +10,11 @@
             die('{success: true, data: "' . $data . '"}');
         break;
         case 'Authentifier':
-            $id = $_POST['numerisateur_id'];
-            if ($id) {
-                $obr = new Obr();
-                $obr->charge($id);
+            $num_id = $_POST['numerisateur_id'];
+            $mot_de_passe = $_POST['mot_de_passe'];
+            $obr = new Numerisateur();
+            $obr->checklogin($num_id, $mot_de_passe) ;
+            if ($obr) {
                 $_SESSION[APPLI]['numerisateur']['code'] = $obr->obr_id;
                 $_SESSION[APPLI]['observateur']['code'] = $_SESSION[APPLI]['numerisateur']['code'];
                 $_SESSION[APPLI]['numerisateur']['libelle'] = $obr->obr_nom . ' ' . $obr->obr_prenom;
