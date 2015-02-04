@@ -12,14 +12,15 @@
         case 'Authentifier':
             $num_id = $_POST['numerisateur_id'];
             $mot_de_passe = $_POST['mot_de_passe'];
-            $obr = new Numerisateur();
-            $obr->checklogin($num_id, $mot_de_passe) ;
-            if ($obr) {
-                $_SESSION[APPLI]['numerisateur']['code'] = $obr->obr_id;
+            $num = new Numerisateur();
+            $num->checklogin($num_id, $mot_de_passe) ;
+            if ($num) {
+                $_SESSION[APPLI]['numerisateur']['code'] = $num->obr_id;
                 $_SESSION[APPLI]['observateur']['code'] = $_SESSION[APPLI]['numerisateur']['code'];
-                $_SESSION[APPLI]['numerisateur']['libelle'] = $obr->obr_nom . ' ' . $obr->obr_prenom;
+                $_SESSION[APPLI]['numerisateur']['libelle'] = $num->obr_nom . ' ' . $num->obr_prenom;
+                $_SESSION[APPLI]['numerisateur']['droit'] = $num->id_droit;
                 $_SESSION[APPLI]['observateur']['libelle'] = $_SESSION[APPLI]['numerisateur']['libelle'];
-                $data = 'Bienvenue ' . $obr->obr_prenom . ' !!!';
+                $data = 'Bienvenue ' . $num->obr_prenom . ' !!!';
                 die('{success: true, data: "' . $data . '"}');
             }
             else {

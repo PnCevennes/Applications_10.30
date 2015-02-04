@@ -1,7 +1,7 @@
 //Variables globales utilisées pour gérer la cartogrille
 var donneesGrille, donneesGrilleFlo, grille, grilleFlo, fenetreCartoGrille, barrePaginat,
     barrePaginatFlo, coucheEditable, sensRegion = CST_region, calqueBio, calqueZprObr,
-    numerisat, numerisateur;
+    numerisat, numerisateur,numerisateur_droit;
 
 Ext.onReady(function() {
     cstPtcId = CST_ptcIdFlore;
@@ -16,6 +16,7 @@ Ext.onReady(function() {
                 if (obj.success) {
                     numerisateur = obj.numerisateur;
                     numerisat = obj.numerisat;
+                    numerisateur_droit = obj.numerisateur_droit;
                     // écran scindé horizontalement ou verticalement selon le paramétrage par défaut
                     basculeEcran(sensRegion);
                 }

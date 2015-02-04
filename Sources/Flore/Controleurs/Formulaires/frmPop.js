@@ -258,14 +258,14 @@ function ajoute(geom) {
     if (geom.CLASS_NAME == 'OpenLayers.Geometry.Polygon') {
         Ext.getCmp('pop_surf').setValue(Math.round(geom.getGeodesicArea()));
     }
-    if (numerisateur == 303) {
+   /*if (numerisateur == 303) {
         comboStatutValid.setValue('OK (Frantz Hopkins)');
     }
     else {
         if (numerisateur == 242) {
             comboStatutValid.setValue('OK (Emeric Sulmont)');
         }
-    }
+    }*/
     finaliseFormulaire();
 }
 
@@ -340,7 +340,7 @@ function soumettre() {
 //Initialisation du formulaire
 function initialiseFormulaire() {
     // gestion des droits particuliers pour l'observateur 303 "Chargé de missions" FLORE
-    if (numerisateur == 303 || numerisateur == 242) {
+    if (numerisateur_droit >= 5) {
         comboStatutValid.setVisible(true);
         Ext.getCmp('pop_rq').height = 46;
     }

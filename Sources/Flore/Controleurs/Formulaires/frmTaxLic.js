@@ -227,9 +227,9 @@ function ajouteLic() {
     // gestion du focus
     comboEspecesLichens.focus('', 500); // focus de 500 ms sinon ça ne marche pas
     Ext.getCmp('tax_bio_id').setValue(grille.selModel.getSelected().data['bio_id']);
-    if (numerisateur == 303) {
+    /*if (numerisateur == 303) {
         comboStatutValid.setValue('OK (Frantz Hopkins)');
-    }
+    }*/
     finaliseFormulaireLic();
 }
 
@@ -290,7 +290,7 @@ function soumettreLic() {
 //Initialisation du formulaire
 function initialiseFormulaireLic() {
     // gestion des droits particuliers pour l'observateur 303 "Chargé de missions" FLORE
-    if (numerisateur == 303) {
+    if (numerisateur_droit >= 5) {
         comboStatutValid.setVisible(true);
         Ext.getCmp('tax_rq').height = 76;
     }

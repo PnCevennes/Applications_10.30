@@ -1,6 +1,6 @@
 //Variables globales utilisées pour gérer la cartogrille
 var donneesGrille, grille, fenetreCartoGrille, barrePaginat, coucheEditable, sensRegion = CST_region,
-    calquePop, calqueZprObr, numerisat, numerisateur, calqueGPX;
+    calquePop, calqueZprObr, numerisat, numerisateur, numerisateur_droit, calqueGPX;
 
 Ext.onReady(function() {
     Ext.Ajax.request({
@@ -14,6 +14,7 @@ Ext.onReady(function() {
                 if (obj.success) {
                     numerisateur = obj.numerisateur;
                     numerisat = obj.numerisat;
+                    numerisateur_droit = obj.numerisateur_droit;
                     // écran scindé horizontalement ou verticalement selon le paramétrage par défaut
                     basculeEcran(sensRegion);
                 }

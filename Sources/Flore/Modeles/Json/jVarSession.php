@@ -8,8 +8,10 @@
             $numerisat = $_SESSION[APPLI]['numerisateur']['libelle'];
             $observateur_id = $_SESSION[APPLI]['observateur']['code'];
             $observateur = $_SESSION[APPLI]['observateur']['libelle'];
+            $numerisateur_droit=$_SESSION[APPLI]['numerisateur']['droit'];
+              
             die('{success: true, numerisateur: "' . $numerisateur_id . '", numerisat: "' .
-                $numerisat . '"}');
+                $numerisat . '", numerisateur_droit: '.$numerisateur_droit.'}');
         break;
         case 'saisieEnCours':
             $data = $_SESSION['saisieEnCours'];

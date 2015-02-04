@@ -1,6 +1,6 @@
 //Variables globales utilisées pour gérer la cartogrille
 var donneesGrille, grille, fenetreCartoGrille, barrePaginat, coucheEditable, donneesPopRevuesStatMAJ,
-    sensRegion = CST_region, numerisat, numerisateur, calqueGPX, calqueEnvConvStatMax,
+    sensRegion = CST_region, numerisat, numerisateur, numerisateur_droit, calqueGPX, calqueEnvConvStatMax,
     calqueEnvConvStatMAJ, calqueStatOri, calqueZprObr, calquePopRevuesStatMAJ, calquePopNonRevuesMAJ_Stat;
 
 Ext.onReady(function() {
@@ -15,6 +15,7 @@ Ext.onReady(function() {
                 if (obj.success) {
                     numerisateur = obj.numerisateur;
                     numerisat = obj.numerisat;
+                    numerisateur_droit = obj.numerisateur_droit;
                     // écran scindé horizontalement ou verticalement selon le paramétrage par défaut
                     basculeEcran(sensRegion);
                 }

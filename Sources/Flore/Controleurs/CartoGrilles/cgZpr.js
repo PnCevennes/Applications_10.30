@@ -1,6 +1,6 @@
 //Variables globales utilisées pour gérer la cartogrille
 var donneesGrille, grille, fenetreCartoGrille, barrePaginat, coucheEditable, idSelection = new Array(),
-    sensRegion = CST_region, numerisat, numerisateur, etiqStat, calqueEnvConvStatMax,
+    sensRegion = CST_region, numerisat, numerisateur, numerisateur_droit, etiqStat, calqueEnvConvStatMax,
     calqueEnvConvStatMAJ, calqueStatOri, calqueGPX, calqueStatMAJ;
 
 Ext.onReady(function() {
@@ -15,6 +15,7 @@ Ext.onReady(function() {
                 if (obj.success) {
                     numerisateur = obj.numerisateur;
                     numerisat = obj.numerisat;
+                    numerisateur_droit = obj.numerisateur_droit;
                     observateur = obj.observateur;
                     obr_id = obj.obr_id;
                     // écran scindé horizontalement ou verticalement selon le paramétrage par défaut
@@ -883,7 +884,7 @@ function affecterProtocole() {
     if (grille.selModel.getCount() == 1) {
         creeCookie('ptc_id', Ext.getCmp('ptc_id').value, 365);
         if (Ext.getCmp('ptc_id').value == 1) {
-            if ((grille.selModel.getSelected().data['cpt_enjeux'] > 0) && (numerisateur != 303)) {
+            if ((grille.selModel.getSelected().data['cpt_enjeux'] > 0) && (numerisateur_droit < 5)) {
                 Ext.MessageBox.confirm('Attention', 'Des données ont déjà été saisies pour ce protocole & cette ZP à cette date ! <br> Modifier ces données ?', function(btn) {
                     if (btn == 'yes') {
                         document.location.href = 'vSaisiePop.php?zpr_id=' + grille.selModel.getSelected().data['zpr_id'];
@@ -895,7 +896,7 @@ function affecterProtocole() {
         }
         else {
             if (Ext.getCmp('ptc_id').value == 2) {
-                if ((grille.selModel.getSelected().data['cpt_station'] > 0) && (numerisateur != 303)) {
+                if ((grille.selModel.getSelected().data['cpt_station'] > 0) && (numerisateur_droit < 5)) {
                     Ext.MessageBox.confirm('Attention', 'Des données ont déjà été saisies pour ce protocole & cette ZP à cette date ! <br> Modifier ces données ?', function(btn) {
                     if (btn == 'yes') {
                         document.location.href = 'vChoixStat.php?zpr_id=' + grille.selModel.getSelected().data['zpr_id'];
@@ -907,7 +908,7 @@ function affecterProtocole() {
             }
             else {
                 if (Ext.getCmp('ptc_id').value == 3) {
-                    if ((grille.selModel.getSelected().data['cpt_lichen'] > 0) && (numerisateur != 303)) {
+                    if ((grille.selModel.getSelected().data['cpt_lichen'] > 0) && (numerisateur_droit < 5)) {
                         Ext.MessageBox.confirm('Attention', 'Des données ont déjà été saisies pour ce protocole & cette ZP à cette date ! <br> Modifier ces données ?', function(btn) {
                         if (btn == 'yes') {
                             document.location.href = 'vSaisieBioLic.php?zpr_id=' + grille.selModel.getSelected().data['zpr_id'];
@@ -918,7 +919,7 @@ function affecterProtocole() {
                     }
                 }
                 else {
-                    if ((grille.selModel.getSelected().data['cpt_flore'] > 0) && (numerisateur != 303)) {
+                    if ((grille.selModel.getSelected().data['cpt_flore'] > 0) && (numerisateur_droit < 5)) {
                         Ext.MessageBox.confirm('Attention', 'Des données ont déjà été saisies pour ce protocole & cette ZP à cette date ! <br> Modifier ces données ?', function(btn) {
                         if (btn == 'yes') {
                             document.location.href = 'vSaisieBioFlo.php?zpr_id=' + grille.selModel.getSelected().data['zpr_id'];
