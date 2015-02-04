@@ -227,9 +227,9 @@ function ajouteLic() {
     // gestion du focus
     comboEspecesLichens.focus('', 500); // focus de 500 ms sinon ça ne marche pas
     Ext.getCmp('tax_bio_id').setValue(grille.selModel.getSelected().data['bio_id']);
-    /*if (numerisateur == 303) {
+    if (numerisateur == 48) {
         comboStatutValid.setValue('OK (Frantz Hopkins)');
-    }*/
+    }
     finaliseFormulaireLic();
 }
 

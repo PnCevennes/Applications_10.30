@@ -599,14 +599,14 @@ function ajoute(geom) {
     if (geom.CLASS_NAME == 'OpenLayers.Geometry.Polygon') {
         Ext.getCmp('pop_surf').setValue(Math.round(geom.getGeodesicArea()));
     }
-    /*if (numerisateur == 303) {
+    if (numerisateur == 48) {
         comboStatutValid.setValue('OK (Frantz Hopkins)');
     }
     else {
-        if (numerisateur == 242) {
+        if (numerisateur == 79) {
             comboStatutValid.setValue('OK (Emeric Sulmont)');
         }
-    }*/
+    }
     finaliseFormulaire();
 }
 
