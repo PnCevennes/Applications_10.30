@@ -13,8 +13,8 @@
             $num_id = $_POST['numerisateur_id'];
             $mot_de_passe = $_POST['mot_de_passe'];
             $num = new Numerisateur();
-            $num->checklogin($num_id, $mot_de_passe) ;
-            if ($num) {
+            $id_obr = $num->checklogin($num_id, $mot_de_passe) ;
+            if ($id_obr) {
                 $_SESSION[APPLI]['numerisateur']['code'] = $num->obr_id;
                 $_SESSION[APPLI]['observateur']['code'] = $_SESSION[APPLI]['numerisateur']['code'];
                 $_SESSION[APPLI]['numerisateur']['libelle'] = $num->obr_nom . ' ' . $num->obr_prenom;
@@ -25,7 +25,7 @@
             }
             else {
                 $errorMessage = 'Authentification échouée';
-                $data = "Veuillez recommencer l'opération";
+                $data = "Mot de passe erroné, Veuillez recommencer l'opération";
                 die('{success: false, errorMessage: "' . $errorMessage . '", data: "' . $data . '"}');
             }
             break;

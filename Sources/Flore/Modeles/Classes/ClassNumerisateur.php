@@ -19,7 +19,7 @@
             while ($row = pg_fetch_array($rs)) {
               return  self::charge($row['obr_id']);
             }
-            return 0;
+            return false;
         }
     }
 ?>
