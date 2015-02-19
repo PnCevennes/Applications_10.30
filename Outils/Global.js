@@ -540,6 +540,7 @@ function supprimeCookie(nom) {
 
 //Template de validation des formulaires
 function templateValidation(url, barreStatus, formulaire, fonctionRetour) {
+    var dfd = new jQuery.Deferred();
     if (formulaire.form.isValid()) {
         formulaire.getEl().mask(); // application d'un masque gris sur le formulaire pour bloquer une saisie Ã©ventuelle
         barreStatus.showBusy('Traitement en cours...'); // affichage du message de chargement
@@ -562,19 +563,21 @@ function templateValidation(url, barreStatus, formulaire, fonctionRetour) {
                 }
                 else {
                     Ext.MessageBox.show({
-                        title: 'ERREUR : ' + action.response.statusText,
-                        msg: 'Code erreur ' + action.response.status,
+                        title: 'ERREUR : ' + (typeof(action.response) == "undefined") ? action.failureType : action.response.statusText,
+                        msg: 'Code erreur ' + (typeof(action.response) == "undefined") ? 0 : action.response.statusText,
                         buttons: Ext.MessageBox.OK,
                         icon: Ext.MessageBox.ERROR
                     });
                 }
+                dfd.reject();
             },
             success: function(form, action) {
                 barreStatus.setStatus({
-                    text: 'OpÃ©ration rÃ©ussie',
+                    text: 'Opération réussie',
                     iconCls: 'x-status-valid'
                 });
                 fonctionRetour(action.result.data);
+                dfd.resolve();
             }
         });
     }
@@ -585,6 +588,7 @@ function templateValidation(url, barreStatus, formulaire, fonctionRetour) {
             iconCls: 'x-status-error'
         });
     }
+    return dfd.promise();
 }
 
 //Exportation des grilles au format Excel

@@ -59,7 +59,7 @@ Ext.onReady(function() {
     });
     //Panel contenant le formulaire avec titre, contrôles de saisie et boutons action
     formulaireLic = new Ext.FormPanel({
-        keys: [{key: [Ext.EventObject.ENTER], fn: function() {if (toucheENTREE_Lic) {soumettreLic()}}}],
+        keys: [{key: [Ext.EventObject.ENTER],ctrl: false, fn: function() {if (toucheENTREE_Lic) {soumettreLic()}}}],
         frame: true,
         items: [{
                 xtype: 'hidden',
@@ -260,6 +260,7 @@ function termineAffichageLic() {
 
 //Fonction appelée sur le click du bouton "Enregistrer"
 function soumettreLic() {
+  var dfd = new jQuery.Deferred();
     if (formulaireLic.form.isValid()) {
         // invalidation forcée des "emptyText" lors de la soumission
         if (comboStatutValid.getRawValue() == '') {
@@ -274,9 +275,11 @@ function soumettreLic() {
         else {
             comboEspecesLichens.setRawValue(comboEspecesLichens.getValue());
         }
-        templateValidation('../Controleurs/Gestions/GestTaxLic.php', Ext.getCmp('statusbarLic'),
+        var dfdvalication = templateValidation('../Controleurs/Gestions/GestTaxLic.php', Ext.getCmp('statusbarLic'),
             formulaireLic, termineAffichageLic);
-            return true;
+        dfdvalication.done(function(  ) {
+          dfd.resolve();
+        });
     }
     else {
         Ext.getCmp('statusbarLic').setStatus({
@@ -284,7 +287,9 @@ function soumettreLic() {
             text: 'Formulaire non valide',
             iconCls: 'x-status-error'
         });
+        dfd.reject();
     }
+    return dfd.promise();
 }
 
 //Initialisation du formulaire
@@ -329,4 +334,13 @@ function afficherSuivantLic() {
     if (grilleLic.selModel.selectNext()) {
         modifieLic();
     }
+}
+
+
+//Fonction pour enregistrer puis ajouter sans fermer le formulaire
+function EnregistrerPuisAjouterLic() {
+  var dfd = soumettreLic();
+  dfd.done(function() {
+    ajouteLic();
+  });
 }

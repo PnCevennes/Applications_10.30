@@ -6,6 +6,9 @@
         <title>Zones prospectées</title>
         <!-- Définition du jeu de caractères -->
         <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+        
+        <script type='text/javascript' src='../../../Librairies/jquery/jquery-1.11.1.min.js'></script>
+        
         <!-- Bibliothèque Ext en français (version de production) -->
         <script type='text/javascript' src='../../../Librairies/Ext/adapter/ext/ext-base.js'></script>
         <!-- mode debug Ext avec Firebug sur Firefox -->

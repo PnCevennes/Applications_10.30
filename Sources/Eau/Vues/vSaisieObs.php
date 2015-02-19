@@ -5,6 +5,9 @@
     <head>
         <title>Observatoire EAU</title>
         <!-- Définition du jeu de caractères -->
+        
+        <script type='text/javascript' src='../../../Librairies/jquery/jquery-1.11.1.min.js'></script>
+        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <!-- Bibliothèque Ext en français (version de production) -->
         <script type="text/javascript" src="../../../Librairies/Ext/adapter/ext/ext-base.js"></script>

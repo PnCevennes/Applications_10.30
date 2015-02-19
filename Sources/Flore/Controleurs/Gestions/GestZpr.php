@@ -38,6 +38,10 @@
             if (isset($_POST['zpr_geom'])) {
                 $zpr->zpr_geom = "st_transform(ST_GeometryFromText('" . $_POST['zpr_geom'] . "', 4326), 2154)";
             }
+            if (isset($_POST['zpr_date'])) {
+              $date = DateTime::createFromFormat('d/m/Y', $_POST['zpr_date']);
+              $zpr->zpr_date = $date->format('Y-m-d');
+            }
             switch ($_POST['action']) {
                 case 'Ajouter':
                     //$zpr->numerisateur = $_SESSION[APPLI]['numerisateur']['code'];

@@ -11,23 +11,5 @@ function affichagePhoto() {
     }
 }
 
-//Fonction pour enregistrer puis ajouter sans fermer le formulaire
-function EnregistrerPuisAjouterFlo() {
-    soumettreFlo();
-    var notifier = new EventNotifier();
-    setTimeout(notifier, 500); // attente de 500 ms sinon ça ne marche pas
-    notifier.wait->();
-    if (resultSoumettreFlo) {
-        ajouteFlo();
-    }
-}
 
-//Fonction pour enregistrer puis ajouter sans fermer le formulaire
-function EnregistrerPuisAjouterLic() {
-    if (soumettreLic()) {
-        var notifier = new EventNotifier();
-        setTimeout(notifier, 500); // attente de 500 ms sinon ça ne marche pas
-        notifier.wait->();
-        ajouteLic();
-    }
-}
+

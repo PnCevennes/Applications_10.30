@@ -1,7 +1,6 @@
 //Variables globales utilisées pour gérer le formulaire
 var formulaireFlo, fenetreFormulaireFlo, toucheENTREE_Flo = true, comboStatutValid,
-    comboEspeces, tailleGenre = 0, modeRequete = '', comboPheno, comboGermination,
-    resultSoumettreFlo;
+    comboEspeces, tailleGenre = 0, modeRequete = '', comboPheno, comboGermination;
 
 Ext.onReady(function() {
     new Ext.KeyMap(document, {
@@ -516,7 +515,8 @@ function termineAffichageFlo() {
 
 //Fonction appelée sur le click du bouton "Enregistrer"
 function soumettreFlo() {
-    resultSoumettreFlo = false;
+    var dfd = new jQuery.Deferred();
+    
     if (formulaireFlo.form.isValid()) {
         // réactivation forcée des contrôles "Disabled" pour permettre leur soumission
         Ext.getCmp('tax_flo_nb').enable(); // mais également contrôler le caractère obligatoire de l'effectif (champ "tax_flo_nb")
@@ -545,9 +545,11 @@ function soumettreFlo() {
                         var obj = Ext.util.JSON.decode(response.responseText); // décodage JSON du résultat du POST
                         if (obj.success) {
                             Ext.getCmp('cd_nom').setValue(obj.data);
-                            templateValidation('../Controleurs/Gestions/GestTaxFlo.php', Ext.getCmp('statusbarFlo'),
+                            var dfdvalication = templateValidation('../Controleurs/Gestions/GestTaxFlo.php', Ext.getCmp('statusbarFlo'),
                                 formulaireFlo, termineAffichageFlo);
-                            resultSoumettreFlo = true;
+                            dfdvalication.done(function(  ) {
+                              dfd.resolve();
+                            });
                         }
                         else {
                             Ext.MessageBox.show({
@@ -556,6 +558,7 @@ function soumettreFlo() {
                                 buttons: Ext.MessageBox.OK,
                                 icon: Ext.MessageBox.WARNING
                             });
+                            dfd.reject();
                         }
                     }
                     else {
@@ -565,6 +568,7 @@ function soumettreFlo() {
                             buttons: Ext.MessageBox.OK,
                             icon: Ext.MessageBox.ERROR
                         });
+                        dfd.reject();
                     }
                 }
             });
@@ -577,7 +581,7 @@ function soumettreFlo() {
             iconCls: 'x-status-error'
         });
     }
-    return resultSoumettreFlo;
+    return dfd.promise();
 }
 
 //Initialisation du formulaire
@@ -735,4 +739,13 @@ function verifiePhenoDominanteCochee() {
         }
     }
     return phenoOK;
+}
+
+
+//Fonction pour enregistrer puis ajouter sans fermer le formulaire
+function EnregistrerPuisAjouterFlo() {
+  var dfd = soumettreFlo();
+  dfd.done(function() {
+    ajouteFlo();
+  });
 }
