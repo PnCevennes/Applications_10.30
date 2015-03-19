@@ -125,7 +125,14 @@ Ext.onReady(function() {
                                 xtype: 'spinnerfield',
                                 fieldLabel: 'Surface (en m²)',
                                 minValue: 0,
-                                id: 'pop_surf'
+                                id: 'pop_surf',
+                                validator: function(val) {
+                                   if (val === parseInt(val)) {
+                                      return true;
+                                   } else {
+                                       return "La surface doit être un entier";
+                                   }
+                                }
                             },
                             comboEspecesEnjeux, {
                                 xtype: 'spinnerfield',
