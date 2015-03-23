@@ -349,7 +349,7 @@ function basculeEcran(sens) {
         layer: calqueStatOri,
         proxy: new GeoExt.data.ProtocolProxy({
             protocol: new OpenLayers.Protocol.HTTP({
-                url: '../Modeles/GeoJson/gjStatOri.php',
+                url: '../Modeles/GeoJson/gjStationFlore.php',
                 format: new OpenLayers.Format.GeoJSON({
                     internalProjection: carte.getProjectionObject(),
                     externalProjection: new OpenLayers.Projection('EPSG:4326')
@@ -587,21 +587,6 @@ function basculeEcran(sens) {
                 labelHaloWidth: 3
             });
             carte.addLayers([etiqStat]);
-            //alert(JSON.stringify(carte.Z_INDEX_BASE));
-            //carte.raiseLayer(etiqStat, -carte.layers.length);
-          /*  alert('calqueEnvConvStatMax : ' + carte.getLayerIndex(calqueEnvConvStatMax));
-            alert('calqueEnvConvStatMax : ' + calqueEnvConvStatMax.getZIndex());
-            alert('coucheEditable : ' + carte.getLayerIndex(coucheEditable));
-            alert('coucheEditable : ' + coucheEditable.getZIndex());
-            alert('calqueEnvConvStatMAJ : ' + carte.getLayerIndex(calqueEnvConvStatMAJ));
-            alert('calqueEnvConvStatMAJ : ' + calqueEnvConvStatMAJ.getZIndex());
-            alert('calqueStatOri : ' + carte.getLayerIndex(calqueStatOri));
-            alert('calqueStatOri : ' + calqueStatOri.getZIndex());
-            alert('calqueStatMAJ : ' + carte.getLayerIndex(calqueStatMAJ));
-            alert('calqueStatMAJ : ' + calqueStatMAJ.getZIndex());
-            alert('etiqStat : ' + carte.getLayerIndex(etiqStat));
-            alert('etiqStat : ' + etiqStat.getZIndex());*/
-            //carte.raiseLayer(carte.getLayersByName('Etiquettes des stations')[0], carte.layers.length);
         }
     });
     donneesGrille.load({

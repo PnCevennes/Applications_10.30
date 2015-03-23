@@ -13,7 +13,9 @@
     else {
         $pop->charge($_POST['pop_id']);
     }
-    $pop->pop_geom = "ST_GeometryFromText('" . $_POST['pop_geom'] . "', 2154)";
+    
+    $pop->pop_geom =  "st_transform(ST_GeometryFromText('" . $_POST['pop_geom'] . "', 4326), 2154)";
+
     unset($pop->pop_id);
     $pop_id = $pop->ajoute($_POST['zpr_id']);
     unset($pop);

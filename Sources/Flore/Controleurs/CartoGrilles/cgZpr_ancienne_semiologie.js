@@ -322,7 +322,7 @@ function basculeEcran(sens) {
         layer: calqueStatOri,
         proxy: new GeoExt.data.ProtocolProxy({
             protocol: new OpenLayers.Protocol.HTTP({
-                url: '../Modeles/GeoJson/gjStatOri.php',
+                url: '../Modeles/GeoJson/gjStationFlore.php',
                 format: new OpenLayers.Format.GeoJSON({
                     internalProjection: carte.getProjectionObject(),
                     externalProjection: new OpenLayers.Projection('EPSG:4326')

@@ -4,11 +4,11 @@
     
     $cnxPgBd = new CnxPgBd();
     if (isset($_GET['bio_id'])) {
-        $req = 'SELECT st_asgeojson(st_transform(bio_geom, 4326)) FROM saisie.station_origine
+        $req = 'SELECT st_asgeojson(st_transform(bio_geom, 4326)) FROM saisie.station_flore
             WHERE bio_id = ' . $_GET['bio_id'];
     }
     else {
-        $req = 'SELECT st_asgeojson(st_transform(bio_geom, 4326)) FROM saisie.station_origine';
+        $req = 'SELECT st_asgeojson(st_transform(bio_geom, 4326)) FROM saisie.station_flore';
     }
     $rs = $cnxPgBd->executeSql($req);
     $geoJson = '{"type": "FeatureCollection", "features": [';

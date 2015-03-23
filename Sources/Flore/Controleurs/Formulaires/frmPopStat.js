@@ -484,7 +484,7 @@ Ext.onReady(function() {
                                 minValue: 0,
                                 id: 'pop_surf',
                                 validator: function(val) {
-                                   if (val === parseInt(val)) {
+                                   if ((val == '' ) || (val == parseInt(val))) {
                                       return true;
                                    } else {
                                        return "La surface doit être un entier";

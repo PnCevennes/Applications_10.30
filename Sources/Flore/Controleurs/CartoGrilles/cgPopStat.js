@@ -439,7 +439,7 @@ function basculeEcran(sens) {
     var donneesStatMAJ = new Ext.data.JsonStore({
         url: '../Modeles/Json/j1Stat.php?bio_id=' + GetParam('bio_id'),
         root: 'data',
-        fields: [{name: 'sta_ori_compl_id'},
+        fields: [{name: 'f_bio_id'},
             {name: 'bio_code'},
             {name: 'bio_fiche'},
             {name: 'vst_date'},
@@ -452,7 +452,7 @@ function basculeEcran(sens) {
         layer: calqueStatOri,
         proxy: new GeoExt.data.ProtocolProxy({
             protocol: new OpenLayers.Protocol.HTTP({
-                url: '../Modeles/GeoJson/gjStatOri.php?bio_id=' + GetParam('bio_id'),
+                url: '../Modeles/GeoJson/gjStationFlore.php?bio_id=' + GetParam('bio_id'),
                 format: new OpenLayers.Format.GeoJSON({
                     internalProjection: carte.getProjectionObject(),
                     externalProjection: new OpenLayers.Projection('EPSG:4326')
@@ -502,35 +502,7 @@ function basculeEcran(sens) {
             colonneSelectionCarto, // en premier obligatoirement
             {dataIndex: 'pop_sta_non_revue', header: 'Non revue', renderer: function (
                 value, metaData, record, rowIndex, colIndex, store  ) {
-            // metaData.attr = 'style="color:red;"';
-            // console.log(value);
-/*     console.log(rowIndex);
-     console.log(grille.getView());
-     console.log(grille.getView().getRow(1));*/
-            //   console.log(css);
-           //  console.log(attr);
-           //  console.log(record);
-         //    console.log(rowIndex);
-         //    console.log(colIndex);
-            	//console.log(metaData);
-            //	console.log(record);
-          //  	console.log(store);
-            //	console.log(col);
-            //	console.log(store);
-            //	console.log(gridView);
-              //  gridView.getRow(row).style.color="#f30";
-            	
-
-              /*  switch (value) {
-        case 't':
-            return 'Oui'
-        case 'f':
-            return 'Non'
-        default:
-            return '';
-            	 }*/
-             return  value;
-
+                  return  value;
                 }
             },
             {dataIndex: 'pop_id', header: 'pop_id', hidden: true},
@@ -700,7 +672,7 @@ function basculeEcran(sens) {
                 id: 'info_ptc_id'
            }, {
                 xtype: 'hidden',
-                id: 'info_sta_ori_compl_id'
+                id: 'f_bio_id'
            }, {
                 layout:'column',
                 items: [{
@@ -1176,10 +1148,9 @@ function afficherGPX() {
 //Appel du formulaire de chargement GPX
 function appliquerLanduse() {
     Ext.Ajax.request({
-        url: '../Controleurs/Gestions/GestStatCompl.php',
+        url: '../Controleurs/Gestions/GestStationFlore.php',
         params: {
             bio_id: GetParam('bio_id'),
-            sta_ori_compl_id: Ext.getCmp('info_sta_ori_compl_id').getValue(),
             sta_ori_landuse: Ext.getCmp('info_sta_ori_landuse').getValue(),
             sta_ori_rq_landuse: Ext.getCmp('info_sta_ori_rq_landuse').getValue()
         },
@@ -1189,6 +1160,14 @@ function appliquerLanduse() {
                 if (!obj.success) {
                     Ext.MessageBox.show({
                         title: obj.errorMessage,
+                        msg: obj.data,
+                        buttons: Ext.MessageBox.OK,
+                        icon: Ext.MessageBox.WARNING
+                    });
+                }
+                else {
+                    Ext.MessageBox.show({
+                        title: 'Modification',
                         msg: obj.data,
                         buttons: Ext.MessageBox.OK,
                         icon: Ext.MessageBox.WARNING
@@ -1222,11 +1201,12 @@ function clonerStation() {
         if (nbEnreg == 0) {
             // cas particulier de la station d'origine qui n'est pas revue
             Ext.Ajax.request({
-                    url: '../Controleurs/Gestions/PopStatx2.php',
+                    url: '../Controleurs/Gestions/GestClonerStation.php',
                     params: {
                         bio_id: GetParam('bio_id'),
                         zpr_id: GetParam('zpr_id'),
-                        pop_geom: calqueStatOri.features[0].geometry
+                        pop_geom: calqueStatOri.features[0].geometry.transform(carte.getProjectionObject(), // clônage car pas de rechargement ensuite
+                            new OpenLayers.Projection('EPSG:4326'))
                     },
                     callback: function(options, success, response) {
                         if (success) {
@@ -1258,11 +1238,12 @@ function clonerStation() {
         else {
             for (var i = 0; i < nbEnreg; ++i) {
                 Ext.Ajax.request({
-                    url: '../Controleurs/Gestions/PopStatx2.php',
+                    url: '../Controleurs/Gestions/GestClonerStation.php',
                     params: {
                         pop_id: calquePopRevuesStatMAJ.features[i].attributes['pop_id'],
                         zpr_id: GetParam('zpr_id'),
-                        pop_geom: calquePopRevuesStatMAJ.features[i].geometry
+                        pop_geom: calquePopRevuesStatMAJ.features[i].geometry.transform(carte.getProjectionObject(), // clônage car pas de rechargement ensuite
+                            new OpenLayers.Projection('EPSG:4326'))
                     },
                     callback: function(options, success, response) {
                         if (success) {

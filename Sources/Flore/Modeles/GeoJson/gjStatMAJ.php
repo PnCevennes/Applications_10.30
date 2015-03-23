@@ -8,22 +8,22 @@
     $calque = (isset($_GET['calque']) && $_GET['calque']);
     if ($calque) {
         $req = 'SELECT st_asgeojson(st_transform(sta_geom, 4326)) FROM saisie.v_station_maj
-            UNION SELECT st_asgeojson(st_transform(bio_geom, 4326)) FROM saisie.station_origine
+            UNION SELECT st_asgeojson(st_transform(bio_geom, 4326)) FROM saisie.station_flore
             WHERE bio_id NOT IN (SELECT bio_id FROM saisie.v_station_maj)';
     }
     else {
         $req = 'SELECT st_asgeojson(st_transform(sta_geom, 4326)), genre, espece, bio_id,
             bio_code, bio_fiche, vst_date, cd_nom, max_zpr_date, nom_vern FROM (SELECT
             sta_geom, bio_id, max_zpr_date FROM saisie.v_station_maj UNION SELECT
-            bio_geom AS sta_geom, bio_id, vst_date AS max_zpr_date FROM saisie.station_origine
+            bio_geom AS sta_geom, bio_id, vst_date AS max_zpr_date FROM saisie.station_flore
             WHERE bio_id NOT IN (SELECT bio_id FROM saisie.v_station_maj)) AS all_station_maj
-            JOIN saisie.station_origine USING(bio_id) JOIN inpn.v_taxref_protocole_suivi
+            JOIN saisie.station_flore USING(bio_id) JOIN inpn.v_taxref_protocole_suivi
             USING(cd_nom) WHERE ' . $where . ' AND ' . $and . $orderLimit;
         $rsTot = $cnxPgBd->executeSql('SELECT COUNT(bio_id) FROM (SELECT
             sta_geom, bio_id, max_zpr_date FROM saisie.v_station_maj UNION SELECT
-            bio_geom AS sta_geom, bio_id, vst_date AS max_zpr_date FROM saisie.station_origine
+            bio_geom AS sta_geom, bio_id, vst_date AS max_zpr_date FROM saisie.station_flore
             WHERE bio_id NOT IN (SELECT bio_id FROM saisie.v_station_maj)) AS all_station_maj
-            JOIN saisie.station_origine USING(bio_id) JOIN inpn.v_taxref_protocole_suivi
+            JOIN saisie.station_flore USING(bio_id) JOIN inpn.v_taxref_protocole_suivi
             USING(cd_nom) WHERE ' . $where . ' AND ' . $and);
         $tot = pg_result($rsTot, 0, 0);
     }
