@@ -3,50 +3,23 @@ var colonneSelection = new Ext.grid.CheckboxSelectionModel();
 var colonneSelectionCarto = new (new Ext.extend(Ext.grid.CheckboxSelectionModel,
     new GeoExt.grid.FeatureSelectionModelMixin));
 
+var SRV_CARTO = 'http://5.196.128.222:83/wms/';
+
 //Configuration par défaut des cartes
+var WMS_IGN = new OpenLayers.Layer.WMS.Post('Fonds IGN', SRV_CARTO+'ign/',
+    {layers: ['Sc1000', 'Sc25', 'Sc100', 'Sc250']});
 
-Proj4js.defs["EPSG:3857"] = "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs"
-
-var ign_api_key =  "cshs7611c5s2igqt5k9u73ag";
-var WMTS_IGN_SCANS = new OpenLayers.Layer.WMTS({
-  name: "IGN - Scans",
-  url: 'https://gpp3-wxs.ign.fr/' + ign_api_key + '/geoportail/wmts',
-  layer: "GEOGRAPHICALGRIDSYSTEMS.MAPS", 
-  matrixSet: "PM",
-  style: "normal",
-  numZoomLevels: 19,
-  projection : new OpenLayers.Projection("EPSG:3857")
-}); 
-
-var WMTS_IGN_ORTHO = new OpenLayers.Layer.WMTS({
-  name: "IGN - Orthophotos",
-  url: 'https://gpp3-wxs.ign.fr/' + ign_api_key + '/geoportail/wmts',
-  layer: 'ORTHOIMAGERY.ORTHOPHOTOS',
-  matrixSet: "PM",
-  style: "normal",
-  numZoomLevels: 19,
-  projection : new OpenLayers.Projection("EPSG:2154")
-}); 
-
-var WMS_PNX = new OpenLayers.Layer.WMS('Limites PNX',
-    'http://extranet.parcnational.fr/pnx/wms', {
-        layers: ['AOA', 'Coeur'],
-        isBaseLayer: false,
-        transparent: 'false'
-    }
-);
-
-var couches = [WMTS_IGN_SCANS,WMTS_IGN_ORTHO ,  WMS_PNX]; // ordre des couches : arrière-plan >>> premier-plan
-
+var WMS_BD_Orthos = new OpenLayers.Layer.WMS.Post('BD Ortho IGN (2007-2008)', SRV_CARTO+'ortho/',
+    {layers: ['BD_Orthos']});
 
 // paramètrage visuel, echelle, emprise et systéme de projection
-const CST_center = [411185.962,5504029.003]; 
+const CST_center = [747329, 6358407];
 const CST_zoom = 12;
 const CST_seuilZoomSelection = 17;
 const CST_region = 'north';
 var carte = new OpenLayers.Map('carte', {
     //maxExtent: new OpenLayers.Bounds(714559, 6314108, 798599, 6388697),
-    maxExtent: new OpenLayers.Bounds(-20037508, -20037508, 20037508, 20037508),
+    maxExtent: new OpenLayers.Bounds(699000, 6299000, 814000, 6404000),
     maxResolution: 'auto',
     projection: 'EPSG:2154',
     displayProjection: new OpenLayers.Projection('EPSG:4326'),
@@ -70,9 +43,8 @@ var carte = new OpenLayers.Map('carte', {
         new OpenLayers.Control.LayerSwitcher()
     ]
 });
-carte.addLayers(couches);
-    
-  
+
+carte.addLayers([WMS_IGN, WMS_BD_Orthos]); 
 //Barre d'outils minimale
 // outil d'historisation de la navigation
 var btnsHistoNavig = new OpenLayers.Control.NavigationHistory();
