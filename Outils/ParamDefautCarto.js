@@ -3,7 +3,7 @@ var colonneSelection = new Ext.grid.CheckboxSelectionModel();
 var colonneSelectionCarto = new (new Ext.extend(Ext.grid.CheckboxSelectionModel,
     new GeoExt.grid.FeatureSelectionModelMixin));
 
-var SRV_CARTO = 'http://5.196.128.222:83/wms/';
+var SRV_CARTO = 'http://5.196.128.222/mapserver/wms/';
 
 //Configuration par défaut des cartes
 var WMS_IGN = new OpenLayers.Layer.WMS('Fonds IGN', SRV_CARTO+'ign/',
