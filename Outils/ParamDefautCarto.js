@@ -6,10 +6,10 @@ var colonneSelectionCarto = new (new Ext.extend(Ext.grid.CheckboxSelectionModel,
 var SRV_CARTO = 'http://5.196.128.222:83/wms/';
 
 //Configuration par défaut des cartes
-var WMS_IGN = new OpenLayers.Layer.WMS.Post('Fonds IGN', SRV_CARTO+'ign/',
+var WMS_IGN = new OpenLayers.Layer.WMS('Fonds IGN', SRV_CARTO+'ign/',
     {layers: ['Sc1000', 'Sc25', 'Sc100', 'Sc250']});
 
-var WMS_BD_Orthos = new OpenLayers.Layer.WMS.Post('BD Ortho IGN (2007-2008)', SRV_CARTO+'ortho/',
+var WMS_BD_Orthos = new OpenLayers.Layer.WMS('BD Ortho HR (2012)', SRV_CARTO+'ortho_hr_2012/',
     {layers: ['BD_Orthos']});
 
 // paramètrage visuel, echelle, emprise et systéme de projection
