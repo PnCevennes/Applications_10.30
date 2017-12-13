@@ -516,7 +516,8 @@ function filtrerSurEmprise() {
 
 //Visualisation
 function visualise() {
-    window.open('http://192.168.10.132:8080/db_pnc/index.php?content=perimetre_quietude&a=view&recid=0&idPerimQuiet=' +
+	//window.open('http://192.168.10.132:8080/db_pnc/index.php?content=perimetre_quietude&a=view&recid=0&idPerimQuiet=' +
+    window.open('http://192.168.10.20:8080/db_pnc/index.php?content=perimetre_quietude&a=view&recid=0&idPerimQuiet=' +
         grille.selModel.getSelected().data['qtd_id']);
  }
 function visualiser() {
